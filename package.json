@@ -1,0 +1,57 @@
+{
+  "name": "cnn-init",
+  "version": "0.1.0",
+  "description": "CLI for initializing new projects",
+  "main": "cnninit-cli.js",
+  "bin": {
+    "cnninit": "./bin/cnninit.js"
+  },
+  "man": "man/man1/cnninit.1",
+  "directories": {
+    "test": "./test"
+  },
+  "scripts": {
+    "generate-changelog": "changelog-maker --group",
+    "generate-docs": "rm -rf docs && esdoc -c .esdoc.json",
+    "generate-manpage": "marked-man src/man/man1/cnninit.1.md > $(jq -r .man package.json)",
+    "test": "eslint *.js **/*.js && test/validate-json-files.sh",
+    "update-apply": "ncu -u",
+    "update-check": "ncu"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cnnlabs/cnn-init.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cnnlabs/cnn-init/issues"
+  },
+  "homepage": "https://github.com/cnnlabs/cnn-init#readme",
+  "engines": {
+    "node": ">=4.2.6"
+  },
+  "dependencies": {
+    "init-package-json": "1.9.3",
+    "npm-package-arg": "4.1.0",
+    "semver": "5.1.0",
+    "validate-npm-package-license": "3.0.1",
+    "validate-npm-package-name": "2.2.2"
+  },
+  "devDependencies": {
+    "changelog-maker": "2.2.0",
+    "esdoc": "0.4.4",
+    "eslint": "1.10.3",
+    "jq-cli-wrapper": "0.3.0",
+    "jsonlint": "1.6.2",
+    "npm-check-updates": "2.5.8"
+  },
+  "os": [
+    "!win32"
+  ],
+  "keywords": [
+    "cnn",
+    "cnnlabs",
+    "cli",
+    "cnn-init"
+  ],
+  "license": "MIT"
+}
