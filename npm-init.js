@@ -19,7 +19,6 @@ var packageJson = package;
         validateLicense = require('validate-npm-package-license'),
         validateName = require('validate-npm-package-name'),
         license = packageJson.license || config.get('init.license') || config.get('init-license') || 'ISC',
-        notest = '',
         scope = config.get('scope'),
         version = packageJson.version || config.get('init.version') || config.get('init-version') || '1.0.0';
 
@@ -27,11 +26,7 @@ var packageJson = package;
         s = packageJson.scripts || {},
         spec = npa(name);
 
-    function isTestPkg(p) {
-        return !!p.match(/^(expresso|mocha|tap|coffee-script|coco|streamline)$/);
-    }
-
-    function readDeps(test) {
+    function readDeps() {
         return function (cb) {
             fs.readdir('node_modules', function (er, dir) {
                 if (er) {
@@ -49,10 +44,6 @@ var packageJson = package;
                     let dp;
 
                     if (d.match(/^\./)) {
-                        return next();
-                    }
-
-                    if (test !== isTestPkg(d)) {
                         return next();
                     }
 
@@ -220,51 +211,11 @@ var packageJson = package;
     };
 
     if (!packageJson.dependencies) {
-        exports.dependencies = readDeps(false);
+        exports.dependencies = readDeps();
     }
 
     if (!packageJson.devDependencies) {
-        exports.devDependencies = readDeps(true);
-    }
-
-    if (!packageJson.scripts) {
-        exports.scripts = function (cb) {
-            fs.readdir(path.join(dirname, 'node_modules'), function (er, d) {
-                setupScripts(d || [], cb);
-            });
-        };
-    }
-
-    function setupScripts(d, cb) {
-        // check to see what framework is in use, if any
-        function tx(test) {
-            return test || notest;
-        }
-
-        if (!s.test || s.test === notest) {
-            const commands = {
-                    tap: 'tap test/*.js',
-                    expresso: 'expresso test',
-                    mocha: 'mocha'
-                },
-                ps = 'test command';
-
-            let command;
-
-            Object.keys(commands).forEach(function (k) {
-                if (d.indexOf(k) !== -1) {
-                    command = commands[k];
-                }
-            });
-
-            if (yes) {
-                s.test = command || notest;
-            }  else {
-                s.test = command ? prompt(ps, command, tx) : prompt(ps, tx);
-            }
-        }
-
-        return cb(null, s);
+        exports.devDependencies = readDeps();
     }
 
     if (!packageJson.repository) {
@@ -320,17 +271,17 @@ var packageJson = package;
         });
     }
 
-    if (!packageJson.author) {
-        exports.author = config.get('init.author.name') ||
-            config.get('init-author-name') ? {
-                name: config.get('init.author.name') ||
-                    config.get('init-author-name'),
-                email: config.get('init.author.email') ||
-                    config.get('init-author-email'),
-                url: config.get('init.author.url') ||
-                    config.get('init-author-url')
-            } : yes ? '' : prompt('author');
-    }
+    // if (!packageJson.author) {
+    //     exports.author = config.get('init.author.name') ||
+    //         config.get('init-author-name') ? {
+    //             name: config.get('init.author.name') ||
+    //                 config.get('init-author-name'),
+    //             email: config.get('init.author.email') ||
+    //                 config.get('init-author-email'),
+    //             url: config.get('init.author.url') ||
+    //                 config.get('init-author-url')
+    //         } : yes ? '' : prompt('author');
+    // }
 
     exports.license = yes ? license : prompt('license', license, function (data) {
         const its = validateLicense(data),
