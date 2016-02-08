@@ -1,13 +1,40 @@
 /* global basename, config, dirname, package, prompt, yes */
 
-var packageJson = package;
+var packageJson = package; // eslint-disable-line
 
 /*
- * This file was taken directly from:
+ * This was taken directly from the link below and modified to fit our needs.
  *
- *     https://raw.githubusercontent.com/npm/init-packageJson-json/master/default-input.js
+ *     https://raw.githubusercontent.com/npm/init-package-json/master/default-input.js
  *
- * and modified to fit our needs.
+ * This is meant to work with `npm init`, not replace it, which is why
+ * init-package-json was not forked for these changes.  See the README in
+ * https://github.com/npm/init-package-json for more details.  For clarity, this
+ * file is the `initFile` that gets passed in to init-package-json when
+ * `npm init` is called.  This will override the default `.npm-init` that is
+ * used by default.
+ *
+ * The globals above, including `package` are available from init-package-json
+ * which pulls in this file as part of `npm init`.  `package` is a future
+ * reserved word in es6 and can't be used when 'use strict' is applied.  We want
+ * this to be as es6 as possible, so the IIFE below is required and the
+ * `var packageJson` above is required to be outside of it.  ESLint on the
+ * command line will still blow up with an error, even with eslint-disable-line
+ * applied.  ESLint in my IDE seems to not care though. WTF. Anyway, it works.
+ *
+ * Without the IIFE, you will get this error:
+ *
+ *     SyntaxError: Block-scoped declarations (let, const, function, class) not yet supported outside strict mode
+ *
+ * With `var packagJson = package;` inside the IIFE, you will get this error:
+ *
+ *     SyntaxError: Unexpected strict mode reserved word
+ *
+ * With the file as it is, also explained above, you will get this error on the
+ * command line when running ESLint, and you may or may not get this error in an
+ * IDE.
+ *
+ *     3:20  error  Parsing error: Use of future reserved word in strict mode
  */
 (function () {
     'use strict';
@@ -18,74 +45,12 @@ var packageJson = package;
         semver = require('semver'),
         validateLicense = require('validate-npm-package-license'),
         validateName = require('validate-npm-package-name'),
-        license = packageJson.license || config.get('init.license') || config.get('init-license') || 'ISC',
+        license = packageJson.license || config.get('init.license') || config.get('init-license') || 'MIT',
         scope = config.get('scope'),
-        version = packageJson.version || config.get('init.version') || config.get('init-version') || '1.0.0';
+        version = packageJson.version || config.get('init.version') || config.get('init-version') || '0.1.0';
 
     let name = packageJson.name || basename,
-        s = packageJson.scripts || {},
         spec = npa(name);
-
-    function readDeps() {
-        return function (cb) {
-            fs.readdir('node_modules', function (er, dir) {
-                if (er) {
-                    return cb();
-                }
-
-                let n = dir.length,
-                    deps = {};
-
-                if (n === 0) {
-                    return cb(null, deps);
-                }
-
-                dir.forEach(function (d) {
-                    let dp;
-
-                    if (d.match(/^\./)) {
-                        return next();
-                    }
-
-                    dp = path.join(dirname, 'node_modules', d, 'packageJson.json');
-
-                    fs.readFile(dp, 'utf8', function (er, p) {
-                        if (er) {
-                            return next();
-                        }
-
-                        try {
-                            p = JSON.parse(p);
-                        } catch (e) {
-                            return next();
-                        }
-
-                        if (!p.version) {
-                            return next();
-                        }
-
-                        if (p._requiredBy) {
-                            if (!p._requiredBy.some(function (req) {
-                                return req === '#USER';
-                            })) {
-                                return next();
-                            }
-                        }
-
-                        deps[d] = config.get('save-exact') ? p.version : config.get('save-prefix') + p.version;
-
-                        return next();
-                    });
-                });
-
-                function next() {
-                    if (--n === 0) {
-                        return cb(null, deps);
-                    }
-                }
-            });
-        };
-    }
 
     if (scope) {
         if (scope.charAt(0) !== '@') {
@@ -125,55 +90,49 @@ var packageJson = package;
         return er;
     });
 
-    if (!packageJson.description) {
-        exports.description = yes ? '' : prompt('description');
-    }
+    exports.description = yes ? '' : prompt('description');
 
-    if (!packageJson.main) {
-        exports.main = function (cb) {
-            fs.readdir(dirname, function (er, f) {
-                let index;
+    exports.main = function (cb) {
+        fs.readdir(dirname, function (er, f) {
+            let index;
 
-                if (er) {
-                    f = [];
-                }
+            if (er) {
+                f = [];
+            }
 
-                f = f.filter(function (f) {
-                    return f.match(/\.js$/);
-                });
-
-                if (f.indexOf('index.js') !== -1) {
-                    f = 'index.js';
-                } else if (f.indexOf('main.js') !== -1) {
-                    f = 'main.js';
-                } else if (f.indexOf(`${basename}.js`) !== -1) {
-                    f = `${basename}.js`;
-                } else {
-                    f = f[0];
-                }
-
-                index = f || 'index.js';
-
-                return cb(null, yes ? index : prompt('entry point', index));
+            f = f.filter(function (f) {
+                return f.match(/\.js$/);
             });
-        };
-    }
 
-    if (!packageJson.bin) {
-        exports.bin = function (cb) {
-            fs.readdir(path.resolve(dirname, 'bin'), function (er, d) {
-                // no bins
-                if (er) {
-                    return cb();
-                }
+            if (f.indexOf('index.js') !== -1) {
+                f = 'index.js';
+            } else if (f.indexOf('main.js') !== -1) {
+                f = 'main.js';
+            } else if (f.indexOf(`${basename}.js`) !== -1) {
+                f = `${basename}.js`;
+            } else {
+                f = f[0];
+            }
 
-                // just take the first js file we find there, or nada
-                return cb(null, d.filter(function (f) {
-                    return f.match(/\.js$/);
-                })[0]);
-            });
-        };
-    }
+            index = f || 'index.js';
+
+            return cb(null, yes ? index : prompt('entry point', index));
+        });
+    };
+
+    exports.bin = function (cb) {
+        fs.readdir(path.resolve(dirname, 'bin'), function (er, d) {
+            // no bins
+            if (er) {
+                return cb();
+            }
+
+            // just take the first js file we find there, or nada
+            return cb(null, d.filter(function (f) {
+                return f.match(/\.js$/);
+            })[0]);
+        });
+    };
 
     exports.directories = function (cb) {
         fs.readdir(dirname, function (er, dirs) {
@@ -185,20 +144,23 @@ var packageJson = package;
 
             dirs.forEach(function (d) {
                 switch (d) {
+                    case 'doc':
+                    case 'docs':
+                        return res.doc = `./${d}`;
+
                     case 'example':
                     case 'examples':
-                        return res.example = d;
+                        return res.example = `./${d}`;
+
+                    case 'lib':
+                        return res.lib = `./${d}`;
+
+                    case 'man':
+                        return res.man = `./${d}`;
 
                     case 'test':
                     case 'tests':
-                        return res.test = d;
-
-                    case 'doc':
-                    case 'docs':
-                        return res.doc = d;
-
-                    case 'man':
-                        return res.man = d;
+                        return res.test = `./${d}`;
                 }
             });
 
@@ -210,78 +172,58 @@ var packageJson = package;
         });
     };
 
-    if (!packageJson.dependencies) {
-        exports.dependencies = readDeps();
-    }
+    exports.dependencies = {};
 
-    if (!packageJson.devDependencies) {
-        exports.devDependencies = readDeps();
-    }
+    exports.devDependencies = {};
 
-    if (!packageJson.repository) {
-        exports.repository = function (cb) {
-            fs.readFile('.git/config', 'utf8', function (er, gconf) {
-                if (er || !gconf) {
-                    return cb(null, yes ? '' : prompt('git repository'));
-                }
-
-                gconf = gconf.split(/\r?\n/);
-
-                const i = gconf.indexOf('[remote "origin"]');
-
-                let u;
-
-                if (i !== -1) {
-                    u = gconf[i + 1];
-                    if (!u.match(/^\s*url =/)) {
-                        u = gconf[i + 2];
-                    }
-
-                    if (!u.match(/^\s*url =/)) {
-                        u = null;
-                    } else {
-                        u = u.replace(/^\s*url = /, '');
-                    }
-                }
-
-                if (u && u.match(/^git@github.com:/)) {
-                    u = u.replace(/^git@github.com:/, 'https://github.com/');
-                }
-
-                return cb(null, yes ? u : prompt('git repository', u));
-            });
-        };
-    }
-
-    if (!packageJson.keywords) {
-        exports.keywords = yes ? '' : prompt('keywords', function (s) {
-            if (!s) {
-                return undefined;
+    exports.repository = function (cb) {
+        fs.readFile('.git/config', 'utf8', function (er, gconf) {
+            if (er || !gconf) {
+                return cb(null, yes ? '' : prompt('git repository'));
             }
 
-            if (Array.isArray(s)) {
-                s = s.join(' ');
+            gconf = gconf.split(/\r?\n/);
+
+            const i = gconf.indexOf('[remote "origin"]');
+
+            let u;
+
+            if (i !== -1) {
+                u = gconf[i + 1];
+                if (!u.match(/^\s*url =/)) {
+                    u = gconf[i + 2];
+                }
+
+                if (!u.match(/^\s*url =/)) {
+                    u = null;
+                } else {
+                    u = u.replace(/^\s*url = /, '');
+                }
             }
 
-            if (typeof s !== 'string') {
-                return s;
+            if (u && u.match(/^git@github.com:/)) {
+                u = u.replace(/^git@github.com:/, 'https://github.com/');
             }
 
-            return s.split(/[\s,]+/);
+            return cb(null, yes ? u : prompt('git repository', u));
         });
-    }
+    };
 
-    // if (!packageJson.author) {
-    //     exports.author = config.get('init.author.name') ||
-    //         config.get('init-author-name') ? {
-    //             name: config.get('init.author.name') ||
-    //                 config.get('init-author-name'),
-    //             email: config.get('init.author.email') ||
-    //                 config.get('init-author-email'),
-    //             url: config.get('init.author.url') ||
-    //                 config.get('init-author-url')
-    //         } : yes ? '' : prompt('author');
-    // }
+    exports.keywords = yes ? 'cnn cnnlabs' : prompt('keywords', 'cnn cnnlabs', function (s) {
+        if (!s) {
+            return undefined;
+        }
+
+        if (Array.isArray(s)) {
+            s = s.join(' ');
+        }
+
+        if (typeof s !== 'string') {
+            return s;
+        }
+
+        return s.split(/[\s,]+/);
+    });
 
     exports.license = yes ? license : prompt('license', license, function (data) {
         const its = validateLicense(data),
