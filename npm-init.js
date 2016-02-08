@@ -337,7 +337,7 @@ var packageJson = package;
             errors = (its.errors || []).concat(its.warnings || []),
             er = new Error(`Sorry, ${errors.join(' and ')}.`);
 
-        if (its.validForNewpackages) {
+        if (its.validForNewPackages) {
             return data;
         }
 
