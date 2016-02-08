@@ -14,17 +14,17 @@ var packageJson = package;
 
     const fs = require('fs'),
         path = require('path'),
-        validateLicense = require('validate-npm-package-license'),
-        validateName = require('validate-npm-package-name'),
         npa = require('npm-package-arg'),
         semver = require('semver'),
-        scope = config.get('scope'),
-        version = packageJson.version || config.get('init.version') || config.get('init-version') || '1.0.0',
-        s = packageJson.scripts || {},
+        validateLicense = require('validate-npm-package-license'),
+        validateName = require('validate-npm-package-name'),
+        license = packageJson.license || config.get('init.license') || config.get('init-license') || 'ISC',
         notest = '',
-        license = packageJson.license || config.get('init.license') || config.get('init-license') || 'ISC';
+        scope = config.get('scope'),
+        version = packageJson.version || config.get('init.version') || config.get('init-version') || '1.0.0';
 
     let name = packageJson.name || basename,
+        s = packageJson.scripts || {},
         spec = npa(name);
 
     function isTestPkg(p) {
@@ -38,9 +38,8 @@ var packageJson = package;
                     return cb();
                 }
 
-                const n = dir.length;
-
-                let deps = {};
+                let n = dir.length,
+                    deps = {};
 
                 if (n === 0) {
                     return cb(null, deps);
@@ -110,14 +109,13 @@ var packageJson = package;
     }
 
     exports.name = yes ? name : prompt('name', name, function (data) {
-        let its = validateName(data);
+        const its = validateName(data),
+            errors = (its.errors || []).concat(its.warnings || []),
+            er = new Error(`Sorry, ${errors.join(' and ')}.`);
 
-        if (its.validForNewpackageJsons) {
+        if (its.validForNewPackages) {
             return data;
         }
-
-        let errors = (its.errors || []).concat(its.warnings || []),
-            er = new Error(`Sorry, ${errors.join(' and ')}.`);
 
         er.notValid = true;
 
@@ -229,7 +227,6 @@ var packageJson = package;
         exports.devDependencies = readDeps(true);
     }
 
-    // MUST have a test script!
     if (!packageJson.scripts) {
         exports.scripts = function (cb) {
             fs.readdir(path.join(dirname, 'node_modules'), function (er, d) {
@@ -337,11 +334,10 @@ var packageJson = package;
 
     exports.license = yes ? license : prompt('license', license, function (data) {
         const its = validateLicense(data),
-            errors = (its.errors || []).concat(its.warnings || []);
+            errors = (its.errors || []).concat(its.warnings || []),
+            er = new Error(`Sorry, ${errors.join(' and ')}.`);
 
-        let er = new Error(`Sorry, ${errors.join(' and ')}.`);
-
-        if (its.validForNewpackageJsons) {
+        if (its.validForNewpackages) {
             return data;
         }
 
