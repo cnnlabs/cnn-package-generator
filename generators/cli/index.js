@@ -23,7 +23,7 @@ module.exports = generators.Base.extend({
     },
 
     npmInit: function () {
-        console.log('I would run npm init here if I knew what the fuck to do!');
+        console.log('run npm init, hopefully');
     },
 
     installingModules: function () {
