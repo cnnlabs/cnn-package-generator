@@ -1,6 +1,6 @@
 /* global basename, config, dirname, package, prompt, yes */
 
-var packageJson = package; // eslint-disable-line
+var pack = package; // eslint-disable-line
 
 /*
  * This was taken directly from the link below and modified to fit our needs.
@@ -12,13 +12,13 @@ var packageJson = package; // eslint-disable-line
  * https://github.com/npm/init-package-json for more details.  For clarity, this
  * file is the `initFile` that gets passed in to init-package-json when
  * `npm init` is called.  This will override the default `.npm-init` that is
- * used by default.
+ * typically used.
  *
  * The globals above, including `package` are available from init-package-json
  * which pulls in this file as part of `npm init`.  `package` is a future
  * reserved word in es6 and can't be used when 'use strict' is applied.  We want
  * this to be as es6 as possible, so the IIFE below is required and the
- * `var packageJson` above is required to be outside of it.  ESLint on the
+ * `var pack` above is required to be outside of it.  ESLint on the
  * command line will still blow up with an error, even with eslint-disable-line
  * applied.  ESLint in my IDE seems to not care though. WTF. Anyway, it works.
  *
@@ -26,7 +26,7 @@ var packageJson = package; // eslint-disable-line
  *
  *     SyntaxError: Block-scoped declarations (let, const, function, class) not yet supported outside strict mode
  *
- * With `var packagJson = package;` inside the IIFE, you will get this error:
+ * With `var pack = package;` inside the IIFE, you will get this error:
  *
  *     SyntaxError: Unexpected strict mode reserved word
  *
@@ -35,6 +35,8 @@ var packageJson = package; // eslint-disable-line
  * IDE.
  *
  *     3:20  error  Parsing error: Use of future reserved word in strict mode
+ *
+ * Also, trying to reference package as global.package results in undefined.
  */
 (function () {
     'use strict';
@@ -45,11 +47,11 @@ var packageJson = package; // eslint-disable-line
         semver = require('semver'),
         validateLicense = require('validate-npm-package-license'),
         validateName = require('validate-npm-package-name'),
-        license = packageJson.license || config.get('init.license') || config.get('init-license') || 'MIT',
+        license = pack.license || config.get('init.license') || config.get('init-license') || 'MIT',
         scope = config.get('scope'),
-        version = packageJson.version || config.get('init.version') || config.get('init-version') || '0.1.0';
+        version = pack.version || config.get('init.version') || config.get('init-version') || '0.1.0';
 
-    let name = packageJson.name || basename,
+    let name = pack.name || basename,
         spec = npa(name);
 
     if (scope) {
@@ -134,6 +136,8 @@ var packageJson = package; // eslint-disable-line
         });
     };
 
+    // @TODO add exports.man in certain conditions
+
     exports.directories = function (cb) {
         fs.readdir(dirname, function (er, dirs) {
             if (er) {
@@ -172,9 +176,7 @@ var packageJson = package; // eslint-disable-line
         });
     };
 
-    exports.dependencies = {};
-
-    exports.devDependencies = {};
+    exports.scripts = {}; // @TODO add base scripts (there are 6 of them currently)
 
     exports.repository = function (cb) {
         fs.readFile('.git/config', 'utf8', function (er, gconf) {
@@ -208,6 +210,16 @@ var packageJson = package; // eslint-disable-line
             return cb(null, yes ? u : prompt('git repository', u));
         });
     };
+
+    exports.engines = {
+        node: '>=5.5.0' // @TODO prompt for the version with smart default
+    };
+
+    exports.dependencies = {};
+
+    exports.devDependencies = {};
+
+    // @TODO add exports.os in certain conditions
 
     exports.keywords = yes ? 'cnn cnnlabs' : prompt('keywords', 'cnn cnnlabs', function (s) {
         if (!s) {
