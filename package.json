@@ -36,8 +36,7 @@
     "semver": "5.1.0",
     "validate-npm-package-license": "3.0.1",
     "validate-npm-package-name": "2.2.2",
-    "yeoman-generator": "0.22.5",
-    "yo": "1.6.0"
+    "yeoman-environment": "1.5.2"
   },
   "devDependencies": {
     "changelog-maker": "2.2.0",
