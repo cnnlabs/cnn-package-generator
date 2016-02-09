@@ -136,7 +136,15 @@ var pack = package; // eslint-disable-line
         });
     };
 
-    // @TODO add exports.man in certain conditions
+    exports.man = function (cb) {
+        fs.readdir(path.resolve(dirname, 'man'), function (er, d) {
+            if (er) {
+                return cb();
+            }
+
+            return cb(null, 'foo');
+        });
+    };
 
     exports.directories = function (cb) {
         fs.readdir(dirname, function (er, dirs) {
