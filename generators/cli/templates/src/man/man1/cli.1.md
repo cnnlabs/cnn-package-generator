@@ -9,5 +9,4 @@ cli
 description
 
 
-## AUTHOR
-Jamie Young james.young@turner.com <http://jamsyoung.com>
+
