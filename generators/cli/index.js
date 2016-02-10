@@ -9,7 +9,7 @@ module.exports = generators.Base.extend({
         this.fs.copy(this.templatePath('.eslintignore'), this.destinationPath('.eslintignore'));
         this.fs.copy(this.templatePath('.eslintrc'), this.destinationPath('.eslintrc'));
         this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
-        this.fs.copy(this.templatePath('.npmrc'), this.destinationPath('.npmrc'));
+        this.fs.copy(this.templatePath('_npmrc'), this.destinationPath('.npmrc'));
         this.fs.copy(this.templatePath('.nvmrc'), this.destinationPath('.nvmrc'));
 
         this.fs.copy(this.templatePath('AUTHORS.md'), this.destinationPath('AUTHORS.md'));
