@@ -2,17 +2,12 @@
   "name": "REPO_NAME",
   "version": "0.1.0",
   "description": "REPLACE ME",
-  "main": "CLI_NAME.js",
-  "bin": {
-    "CLI_NAME": "./bin/CLI_NAME.js"
-  },
-  "man": "man/man1/CLI_NAME.1",
+  "main": "1",
   "directories": {
   },
   "scripts": {
     "generate-changelog": "changelog-maker --group",
     "generate-docs": "rm -rf docs && esdoc -c .esdoc.json",
-    "generate-manpage": "marked-man src/man/man1/CLI_NAME.1.md > $(jq -r .man package.json)",
     "test": "eslint *.js **/*.js && test/validate-json-files.sh",
     "update-apply": "ncu -u",
     "update-check": "ncu"
@@ -27,7 +22,6 @@
   },
   "dependencies": {},
   "devDependencies": {},
-  "os": [],
   "keywords": [],
   "license": "MIT"
 }

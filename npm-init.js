@@ -124,8 +124,8 @@ var pack = package; // eslint-disable-line
 
     exports.bin = function (cb) {
         fs.readdir(path.resolve(dirname, 'bin'), function (er, d) {
-            // no bins
             if (er) {
+                // called if bin doesn't exist
                 return cb();
             }
 
@@ -139,6 +139,8 @@ var pack = package; // eslint-disable-line
     exports.man = function (cb) {
         fs.readdir(path.resolve(dirname, 'man'), function (er, d) {
             if (er) {
+                // called if man doesn't exist
+
                 return cb();
             }
 

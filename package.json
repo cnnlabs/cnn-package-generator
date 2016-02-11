@@ -2,18 +2,18 @@
   "name": "cnn-init",
   "version": "0.1.0",
   "description": "CLI for initializing new projects",
-  "main": "cnninit-cli.js",
+  "main": "cnn-cli.js",
   "bin": {
-    "cnninit": "./bin/cnninit.js"
+    "cnn": "./bin/cnn.js"
   },
-  "man": "man/man1/cnninit.1",
+  "man": "man/man1/cnn.1",
   "directories": {
     "test": "./test"
   },
   "scripts": {
     "generate-changelog": "changelog-maker --group",
     "generate-docs": "rm -rf docs && esdoc -c .esdoc.json",
-    "generate-manpage": "marked-man src/man/man1/cnninit.1.md > $(jq -r .man package.json)",
+    "generate-manpage": "marked-man src/man/man1/cnn.1.md > $(jq -r .man package.json)",
     "test": "eslint *.js **/*.js && test/validate-json-files.sh",
     "update-apply": "ncu -u",
     "update-check": "ncu"
@@ -27,10 +27,11 @@
   },
   "homepage": "https://github.com/cnnlabs/cnn-init#readme",
   "engines": {
-    "node": ">=5.6.0"
+    "node": ">=5.5.0"
   },
   "dependencies": {
     "init-package-json": "1.9.3",
+    "marked-man": "0.1.5",
     "minimist": "1.2.0",
     "npm-package-arg": "4.1.0",
     "semver": "5.1.0",
