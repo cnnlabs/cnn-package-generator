@@ -21,7 +21,15 @@ $ npm install --global cnn-init
 
 ## Usage
 
-`cnn [generator]`
+```
+$ cnn --help
+Usage: cnn [OPTIONS] generators
+  -h, --help       Show this information
+  -v, --version    Show version information
+
+  Available generators:
+    cli
+```
 
 
 ## Valid generators
