@@ -18,7 +18,7 @@ Object.keys(argv).forEach(function (option) {
             break;
 
         case 'v':
-            console.log(`cnninit v${pack.version}`);
+            console.log(`<%= CLI_NAME %> v${pack.version}`);
             process.exit(0);
             break;
     }

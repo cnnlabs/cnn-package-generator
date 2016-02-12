@@ -168,7 +168,7 @@ module.exports = generators.Base.extend({
             this.fs.copy(this.templatePath('CONTRIBUTING.md'), this.destinationPath('CONTRIBUTING.md'));
             this.fs.copy(this.templatePath('GOVERNANCE.md'), this.destinationPath('GOVERNANCE.md'));
 
-            this.fs.copy(this.templatePath('man/man1/.gitkeep'), this.destinationPath('man/man1/.gitkeep'));
+            this.fs.copy(this.templatePath('man/man1/.gitkeep'), this.destinationPath(`man/man1/${this.cliName}.1`));
             this.fs.copy(this.templatePath('test/'), this.destinationPath('test/'));
         },
 
