@@ -8,3 +8,4 @@ CNN `cnn` cli for creating new projects
 [![npm](https://img.shields.io/npm/v/cnn-init.svg?style=flat-square)]()
 [![Gemnasium](https://img.shields.io/gemnasium/mathiasbynens/he.svg?style=flat-square)](https://gemnasium.com/cnnlabs/cnn-init)
 [![GitHub issues](https://img.shields.io/github/issues/cnnlabs/cnn-init.svg?style=flat-square)](https://github.com/cnnlabs/cnn-init/issues)
+[![npm](https://img.shields.io/npm/dm/cnn-init.svg?style=flat-square)](https://npmjs.org/cnnlabs/cnn-init)

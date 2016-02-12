@@ -1,12 +1,9 @@
-# cli(1) -- cli Command Line Interface
+# <%= CLI_NAME %>(1) -- <%= CLI_NAME %> Command Line Interface
 
 
 ## SYNOPSIS
-cli
+<%= CLI_NAME %> [options]
 
 
 ## DESCRIPTION
-description
-
-
 

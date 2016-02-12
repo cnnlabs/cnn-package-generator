@@ -1,2 +1,3 @@
+./docs
 ./node-modules
-./npm-init.js
+./generators/cli/templates/.npm-init.js

@@ -1,5 +1,5 @@
 {
-    "title": "CNN Hapi",
+    "title": "<%= PROJECT_NAME %>",
     "source": "./",
     "destination": "./docs",
     "excludes": ["docs", "node_modules"],

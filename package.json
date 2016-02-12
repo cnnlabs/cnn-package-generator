@@ -14,7 +14,7 @@
     "generate-changelog": "changelog-maker --group",
     "generate-docs": "rm -rf docs && esdoc -c .esdoc.json",
     "generate-manpage": "marked-man src/man/man1/cnn.1.md > $(jq -r .man package.json)",
-    "test": "eslint *.js **/*.js && test/validate-json-files.sh",
+    "test": "eslint *.js .*.js **/*.js **/.*.js && test/validate-json-files.sh",
     "update-apply": "ncu -u",
     "update-check": "ncu"
   },

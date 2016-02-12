@@ -6,12 +6,14 @@
 - [Accepting Modifications](#accepting-modifications)
   - [Involving the PO/TC](#involving-the-potc)
 - [Landing Pull Requests](#landing-pull-requests)
-  - [Technical HOWTO](#technical-howto)
+  - [Summarized Technical HOWTO](#summarized-technical-howto)
+  - [Detailed Technical HOWTO](#detailed-technical-howto)
   - [I've made a huge mistake](#ive-made-a-huge-mistake)
+- [Creating a Release](#creating-a-release)
 
 This document contains information for Collaborators of this project regarding
 maintaining the code, documentation and issues.  This is almost exactly the same
-as the [node.js Collaborator Guide](https://github.com/nodejs/node/blob/master/COLLABORATOR_GUIDE.md)
+as the [io.js Collaborator Guide](https://github.com/nodejs/io.js/blob/master/COLLABORATOR_GUIDE.md)
 with changes to be a bit more generic and apply to projects with a single
 Project Owner (PO) versus a Technical Committee (TC).
 
@@ -128,9 +130,29 @@ Additionally:
   bisecting to find a breaking change.
 
 
-### Technical HOWTO
+### Summarized Technical HOWTO
 
-_Optional:_ ensure that you are not in a borked `am`/`rebase` state
+The Detailed Technical HOWTO above covers all the bases.  You rarely need to do
+many of those steps though.  Here is a summary for the typical landing of a PR.
+
+```shell
+$ git checkout develop
+$ git fetch -p; git pull origin develop
+$ curl -L $ curl -L https://patch-diff.githubusercontent.com/raw/ORG_NAME/REPO_NAME/pull/171.patch?token=VALID_TOKEN | git am -3
+$ git rebase -i origin/develop
+
+... squash all commits except for the first one ...
+
+$ git push origin develop
+```
+
+If you run into any problem, do a `git rebase --abort` and click the _**Merge**_
+button on the PR.
+
+
+### Detailed Technical HOWTO
+
+Ensure that you are not in a borked `am`/`rebase` state.
 
 ```shell
 $ git am --abort
@@ -155,7 +177,7 @@ add `.patch` to the end of the URL and hit return.  It will redirect to a patch
 of the changes.  Copy that URL and use it below.
 
 ```shell
-$ curl -L https://patch-diff.githubusercontent.com/raw/TurnerBroadcasting/hapi-boilerplate/pull/171.patch?token=AApgjpIXve_Vup5y7nuYPhg94APftqplks5VjxMjwA%3D%3D | git am --whitespace=fix
+$ curl -L https://patch-diff.githubusercontent.com/raw/ORG_NAME/REPO_NAME/pull/PR_NUMBER.patch?token=VALID_TOKEN | git am -3
 ```
 
 Check and re-review the changes, they should match exactly what is in the pull
@@ -250,3 +272,56 @@ allowed for simpler slip-ups such as typos in commit messages.  However, you are
 only allowed to force push to any projects branch within 10 minutes from your
 original push.  If someone else pushes to the branch or the 10 minute period
 passes, consider the commit final.
+
+
+## Creating a Release
+
+Creating a release basically means bumping the package.json version number,
+generating the changelog, and merging the code into the master branch, which
+will generate a build that can be deployed to any environment, including
+production.
+
+```shell
+$ git checkout develop
+$ git fetch -p; git pull origin develop
+$ jq .version package.json
+0.29.0
+$ git checkout -b release/0.30.0
+$ vim package.json
+
+... update the version from 0.29.0 to 0.30.0 in package.json ...
+
+$ npm run generate-changelog
+
+> REPO_NAME@0.29.0 generate-changelog /Users/jyoung/dev/REPO_NAME
+> changelog-maker --group
+
+* [[`47d94cbca5`](https://github.com/ORG_NAME/REPO_NAME/commit/47d94cbca5)] - update candidate info (AUTHOR)
+
+... copy the commit lines, they start with * ...
+
+$ vim CHANGELOG.md
+
+... update the changelog, follow the conventions of previous entries, including spacing and capitalization ...
+
+$ git commit -am 0.30.0
+$ git checkout master
+$ git merge release/0.30.0
+$ git push origin master
+$ git tag v0.30.0
+$ git push origin v0.30.0
+$ git checkout develop
+$ git merge master
+$ git push origin develop
+```
+
+Copy the CHANGELOG.md entry you made earlier.  Add the release notes to GitHub.
+Goto https://github.com/ORG_NAME/REPO_NAME/tags and click
+_**Add Release Notes**_ next to the tag that was pushed up earlier.
+
+Copy the release notes from the GitHub website; The html, not the markdown you
+copied earlier.  Paste that into an email addressed to
+CNNProductionNotification@turner.com with a Subject of
+`Production Deployment: REPO_NAME-[version-number]`.
+
+Publish the released version to npm.

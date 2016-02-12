@@ -1,3 +1,2 @@
-# CNN Hapi Changelog
+# <%= PROJECT_NAME %> Changelog
 
-This changelog is not tracking changes lower than v1.0.0
