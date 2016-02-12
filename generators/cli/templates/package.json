@@ -28,7 +28,9 @@
   },
   "dependencies": {},
   "devDependencies": {},
-  "os": [],
+  "os": [
+    "!win32"
+  ],
   "keywords": [],
   "license": "MIT"
 }

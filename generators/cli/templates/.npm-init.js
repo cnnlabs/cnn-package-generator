@@ -42,14 +42,11 @@ var pack = package; // eslint-disable-line
     'use strict';
 
     const fs = require('fs'),
-        path = require('path'),
         npa = require('npm-package-arg'),
-        semver = require('semver'),
-        validateLicense = require('validate-npm-package-license'),
         validateName = require('validate-npm-package-name'),
-        license = pack.license || config.get('init.license') || config.get('init-license') || 'MIT',
-        scope = config.get('scope'),
-        version = pack.version || config.get('init.version') || config.get('init-version') || '0.1.0';
+        description = pack.description || '',
+        keywords = 'cnn cnnlabs cli',
+        scope = config.get('scope');
 
     let name = pack.name || basename,
         spec = npa(name);
@@ -66,7 +63,7 @@ var pack = package; // eslint-disable-line
         }
     }
 
-    exports.name = yes ? name : prompt('name', name, function (data) {
+    exports.name = yes ? name : prompt('Package name (should match the repository name)', name, function (data) {
         const its = validateName(data),
             errors = (its.errors || []).concat(its.warnings || []),
             er = new Error(`Sorry, ${errors.join(' and ')}.`);
@@ -80,73 +77,7 @@ var pack = package; // eslint-disable-line
         return er;
     });
 
-    exports.version = yes ? version : prompt('version', version, function (version) {
-        const er = new Error(`Invalid version: "${version}"`);
-
-        if (semver.valid(version)) {
-            return version;
-        }
-
-        er.notValid = true;
-
-        return er;
-    });
-
-    exports.description = yes ? '' : prompt('description');
-
-    exports.main = function (cb) {
-        fs.readdir(dirname, function (er, f) {
-            let index;
-
-            if (er) {
-                f = [];
-            }
-
-            f = f.filter(function (f) {
-                return f.match(/\.js$/);
-            });
-
-            if (f.indexOf('index.js') !== -1) {
-                f = 'index.js';
-            } else if (f.indexOf('main.js') !== -1) {
-                f = 'main.js';
-            } else if (f.indexOf(`${basename}.js`) !== -1) {
-                f = `${basename}.js`;
-            } else {
-                f = f[0];
-            }
-
-            index = f || 'index.js';
-
-            return cb(null, yes ? index : prompt('entry point', index));
-        });
-    };
-
-    exports.bin = function (cb) {
-        fs.readdir(path.resolve(dirname, 'bin'), function (er, d) {
-            if (er) {
-                // called if bin doesn't exist
-                return cb();
-            }
-
-            // just take the first js file we find there, or nada
-            return cb(null, d.filter(function (f) {
-                return f.match(/\.js$/);
-            })[0]);
-        });
-    };
-
-    exports.man = function (cb) {
-        fs.readdir(path.resolve(dirname, 'man'), function (er, d) {
-            if (er) {
-                // called if man doesn't exist
-
-                return cb();
-            }
-
-            return cb(null, 'foo');
-        });
-    };
+    exports.description = yes ? description : prompt('Package description', description);
 
     exports.directories = function (cb) {
         fs.readdir(dirname, function (er, dirs) {
@@ -186,12 +117,10 @@ var pack = package; // eslint-disable-line
         });
     };
 
-    exports.scripts = {}; // @TODO add base scripts (there are 6 of them currently)
-
     exports.repository = function (cb) {
         fs.readFile('.git/config', 'utf8', function (er, gconf) {
             if (er || !gconf) {
-                return cb(null, yes ? '' : prompt('git repository'));
+                return cb(null, yes ? '' : prompt('Git repository'));
             }
 
             gconf = gconf.split(/\r?\n/);
@@ -217,21 +146,11 @@ var pack = package; // eslint-disable-line
                 u = u.replace(/^git@github.com:/, 'https://github.com/');
             }
 
-            return cb(null, yes ? u : prompt('git repository', u));
+            return cb(null, yes ? u : prompt('Git repository', u));
         });
     };
 
-    exports.engines = {
-        node: '>=5.5.0' // @TODO prompt for the version with smart default
-    };
-
-    exports.dependencies = {};
-
-    exports.devDependencies = {};
-
-    // @TODO add exports.os in certain conditions
-
-    exports.keywords = yes ? 'cnn cnnlabs' : prompt('keywords', 'cnn cnnlabs', function (s) {
+    exports.keywords = yes ? keywords : prompt('Keywords', keywords, function (s) {
         if (!s) {
             return undefined;
         }
@@ -245,19 +164,5 @@ var pack = package; // eslint-disable-line
         }
 
         return s.split(/[\s,]+/);
-    });
-
-    exports.license = yes ? license : prompt('license', license, function (data) {
-        const its = validateLicense(data),
-            errors = (its.errors || []).concat(its.warnings || []),
-            er = new Error(`Sorry, ${errors.join(' and ')}.`);
-
-        if (its.validForNewPackages) {
-            return data;
-        }
-
-        er.notValid = true;
-
-        return er;
     });
 }());

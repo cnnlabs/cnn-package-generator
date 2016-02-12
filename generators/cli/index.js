@@ -68,6 +68,7 @@ module.exports = generators.Base.extend({
     prompting: {
         prompt: function () {
             let done = this.async();
+
             this.prompt(
                 [
                     {
@@ -115,7 +116,6 @@ module.exports = generators.Base.extend({
                         message: 'Git name:',
                         default: this.user.git.name(),
                         validate: validateCharacterString
-
                     }
                 ],
 
@@ -126,6 +126,7 @@ module.exports = generators.Base.extend({
                     this.repositoryName = answers.repositoryName;
                     this.gitName = answers.gitName;
                     this.gitEmail = answers.gitEmail;
+
                     done();
                 }.bind(this)
             );
@@ -167,26 +168,21 @@ module.exports = generators.Base.extend({
             this.fs.copy(this.templatePath('CONTRIBUTING.md'), this.destinationPath('CONTRIBUTING.md'));
             this.fs.copy(this.templatePath('GOVERNANCE.md'), this.destinationPath('GOVERNANCE.md'));
 
-            this.fs.copy(this.templatePath('man/man1/.gitkeep'), this.destinationPath('man/man1/'));
+            this.fs.copy(this.templatePath('man/man1/.gitkeep'), this.destinationPath('man/man1/.gitkeep'));
             this.fs.copy(this.templatePath('test/'), this.destinationPath('test/'));
         },
 
         copyTemplates: function () {
-            this.fs.copyTpl(this.templatePath('_nvmrc'), this.destinationPath('.nvmrc'), this.templateModel);
             this.fs.copyTpl(this.templatePath('_esdoc.json'), this.destinationPath('.esdoc.json'), this.templateModel);
-            this.fs.copyTpl(this.templatePath('src/man/man1/cli.1.md'), this.destinationPath(`src/man/man1/${this.cliName}.1.md`), this.templateModel);
+            this.fs.copyTpl(this.templatePath('_nvmrc'), this.destinationPath('.nvmrc'), this.templateModel);
             this.fs.copyTpl(this.templatePath('CHANGELOG.md'), this.destinationPath('CHANGELOG.md'), this.templateModel);
+            this.fs.copyTpl(this.templatePath('lib/cli.js'), this.destinationPath(`lib/${this.cliName}-cli.js`), this.templateModel);
             this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), this.templateModel);
             this.fs.copyTpl(this.templatePath('README.md'), this.destinationPath('README.md'), this.templateModel);
+            this.fs.copyTpl(this.templatePath('src/man/man1/cli.1.md'), this.destinationPath(`src/man/man1/${this.cliName}.1.md`), this.templateModel);
+        },
 
-        }
-    },
-
-    conflicts: {},
-
-    install: {
         createRepository: function () {
-            // git init
             this.spawnCommandSync('git', ['init']);
 
             if (this.gitName !== this.user.git.name()) {
@@ -196,45 +192,36 @@ module.exports = generators.Base.extend({
             if (this.gitEmail !== this.user.git.email()) {
                 this.spawnCommandSync('git', ['config', '--local', 'user.email', this.gitEmail]);
             }
-        },
-
-        npmInstall: function () {
-            // this.npmInstall([
-            //     'changelog-maker',
-            //     'esdoc',
-            //     'eslint',
-            //     'marked-man',
-            //     'jq-cli-wrapper',
-            //     'jsonlint',
-            //     'npm-check-updates'
-            // ], {
-            //     saveDev: true
-            // });
         }
     },
 
-    end: {}
+    conflicts: {},
+
+    install: {
+        npmInit: function () {
+            this.spawnCommandSync('npm', ['init']);
+        },
+
+        npmInstall: function () {
+            this.npmInstall(['minimist'], {save: true});
+
+            this.npmInstall([
+                'changelog-maker',
+                'esdoc',
+                'eslint',
+                'marked-man',
+                'jq-cli-wrapper',
+                'jsonlint',
+                'npm-check-updates'
+            ], {
+                saveDev: true
+            });
+        }
+    },
+
+    end: {
+        generateManpage: function () {
+            this.spawnCommandSync('npm', ['run', 'generate-manpage']);
+        }
+    }
 });
-
-
-// module.exports = generators.Base.extend({
-//     writing: {
-//         copyFiles: function () {
-//             this.fs.copy(this.templatePath('package.json'), this.destinationPath('package.json'));
-//         },
-//     },
-
-//     install: {
-//         npmInstall: function () {
-//             this.npmInstall([
-//                 'marked-man'
-//             ], {
-//                 saveDev: true
-//             });
-//         },
-
-//         npmInit: function () {
-//             this.spawnCommand('npm init');
-//         }
-//     }
-// });

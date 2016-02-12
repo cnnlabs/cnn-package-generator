@@ -31,11 +31,8 @@
   },
   "dependencies": {
     "init-package-json": "1.9.3",
-    "marked-man": "0.1.5",
     "minimist": "1.2.0",
     "npm-package-arg": "4.1.0",
-    "semver": "5.1.0",
-    "validate-npm-package-license": "3.0.1",
     "validate-npm-package-name": "2.2.2",
     "yeoman-environment": "1.5.2",
     "yeoman-generator": "0.22.5"
@@ -46,6 +43,7 @@
     "eslint": "1.10.3",
     "jq-cli-wrapper": "0.3.0",
     "jsonlint": "1.6.2",
+    "marked-man": "0.1.5",
     "npm-check-updates": "2.5.8"
   },
   "os": [
