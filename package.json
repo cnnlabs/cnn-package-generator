@@ -1,8 +1,8 @@
 {
   "name": "cnn-package-generator",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A CLI for generating CNN packages.",
-  "main": "cnn-cli.js",
+  "main": "lib/cnn-cli.js",
   "bin": {
     "cnn": "./bin/cnn.js"
   },
@@ -10,6 +10,8 @@
     "man/man1/cnn.1"
   ],
   "directories": {
+    "lib": "./lib",
+    "man": "./man",
     "test": "./test"
   },
   "scripts": {
