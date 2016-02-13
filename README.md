@@ -92,8 +92,8 @@ Usage: cnn [OPTIONS] generators
 
 
 
-[![build](https://img.shields.io/travis/cnnlabs/cnn-init/master.svg?style=flat-square)](https://travis-ci.org/cnnlabs/cnn-init)
+[![build](https://img.shields.io/travis/cnnlabs/cnn-package-generator/master.svg?style=flat-square)](https://travis-ci.org/cnnlabs/cnn-package-generator)
 [![node](https://img.shields.io/node/v/cnn-hapi.svg?style=flat-square)]()
-[![npm](https://img.shields.io/npm/v/cnn-init.svg?style=flat-square)]()
-[![npm](https://img.shields.io/npm/dm/cnn-init.svg?style=flat-square)](https://npmjs.org/cnnlabs/cnn-init)
-[![Gemnasium](https://img.shields.io/gemnasium/mathiasbynens/he.svg?style=flat-square)](https://gemnasium.com/cnnlabs/cnn-init)
+[![npm](https://img.shields.io/npm/v/cnn-package-generator.svg?style=flat-square)]()
+[![npm](https://img.shields.io/npm/dm/cnn-package-generator.svg?style=flat-square)](https://npmjs.org/cnnlabs/cnn-package-generator)
+[![Gemnasium](https://img.shields.io/gemnasium/mathiasbynens/he.svg?style=flat-square)](https://gemnasium.com/cnnlabs/cnn-package-generator)
