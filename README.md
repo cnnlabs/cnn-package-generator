@@ -3,7 +3,7 @@
 A command line tool for generating package templates that will comply with the
 CNN coding styles and practices.
 
-This package is in very early stanges and has very limited uses right now.
+This package is in very early stages and has very limited uses right now.
 
 
 ## Requirements
@@ -63,7 +63,7 @@ Usage: cnn [OPTIONS] generators
 
 - Creates a GIT repository for the project.
 
-- Generates a default package.json with all of the requried properties and
+- Generates a default package.json with all of the required properties and
   dependencies needed for the chosen generator.  Includes the following default
   scripts.
 
@@ -71,7 +71,7 @@ Usage: cnn [OPTIONS] generators
     which is used by npmjs.org when your package is published.
 
   - `generate-changelog` - Uses [changelog-maker](https://github.com/rvagg/changelog-maker)
-    to generate the CHANGELOG.md
+    to generate the CHANGELOG.md.
 
   - `generate-docs` - Uses [ESDoc](https://esdoc.org/) to generate documentation
     in `/docs`.
@@ -80,7 +80,8 @@ Usage: cnn [OPTIONS] generators
     to create man pages.  Only applies to the cli generator.
 
   - `test` - Uses [ESLint](http://eslint.org/) to validate all .js files and
-    uses [jsonlint]() to validates all .json files
+    uses [jsonlint](https://github.com/zaach/jsonlint) to validates all .json
+    files.
 
   - `update-apply` - Uses [ncu](https://github.com/tjunnone/npm-check-updates)
     and updates all dependencies.
@@ -88,13 +89,12 @@ Usage: cnn [OPTIONS] generators
   - `update-check` - Uses [ncu](https://github.com/tjunnone/npm-check-updates)
     and lists all updates, but does not apply them.
 
-- Calls `npm-init` to futher customize the package.json file.
+- Calls `npm-init` to further customize the package.json file.
 
 
 
 [![build](https://img.shields.io/travis/cnnlabs/cnn-package-generator/master.svg?style=flat-square)](https://travis-ci.org/cnnlabs/cnn-package-generator)
-[![node](https://img.shields.io/node/v/cnn-hapi.svg?style=flat-square)]()
-[![npm](https://img.shields.io/npm/v/cnn-package-generator.svg?style=flat-square)]()
-[![npm](https://img.shields.io/npm/dm/cnn-package-generator.svg?style=flat-square)](https://npmjs.org/cnnlabs/cnn-package-generator)
-[![Dependency Status](https://gemnasium.com/cnnlabs/cnn-package-generator.svg)](https://gemnasium.com/cnnlabs/cnn-package-generator)
-
+![node](https://img.shields.io/node/v/cnn-hapi.svg?style=flat-square)
+[![npm](https://img.shields.io/npm/v/cnn-package-generator.svg?style=flat-square)](https://www.npmjs.com/package/cnn-package-generator)
+[![npm-downloads](https://img.shields.io/npm/dm/cnn-package-generator.svg?style=flat-square)](https://www.npmjs.com/package/cnn-package-generator)
+[![dependency-status](https://gemnasium.com/cnnlabs/cnn-package-generator.svg)](https://gemnasium.com/cnnlabs/cnn-package-generator)
