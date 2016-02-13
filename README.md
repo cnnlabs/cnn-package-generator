@@ -1,6 +1,9 @@
-# CNN CLI
+# CNN Package Generator
 
-CNN `cnn` cli for creating new projects
+A command line tool for generating package templates that will comply with the
+CNN coding styles and practices.
+
+This package is in very early stanges and has very limited uses right now.
 
 
 ## Requirements
@@ -15,7 +18,7 @@ are currently tested.
 ## Install
 
 ```shell
-$ npm install --global cnn-init
+$ npm install --global cnn-package-generator
 ```
 
 

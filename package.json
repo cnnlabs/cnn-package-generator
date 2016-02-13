@@ -23,12 +23,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cnnlabs/cnn-init.git"
+    "url": "https://github.com/cnnlabs/cnn-package-generator.git"
   },
   "bugs": {
-    "url": "https://github.com/cnnlabs/cnn-init/issues"
+    "url": "https://github.com/cnnlabs/cnn-package-generator/issues"
   },
-  "homepage": "https://github.com/cnnlabs/cnn-init",
+  "homepage": "https://github.com/cnnlabs/cnn-package-generator",
   "engines": {
     "node": ">=5.5.0"
   },
@@ -56,7 +56,7 @@
     "cnn",
     "cnnlabs",
     "cli",
-    "cnn-init"
+    "cnn-package-generator"
   ],
   "license": "MIT"
 }
