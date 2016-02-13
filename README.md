@@ -64,6 +64,9 @@ Usage: cnn [OPTIONS] generators
   dependencies needed for the chosen generator.  Includes the following default
   scripts.
 
+  - `generate-authors` - Uses a bash script to generate the AUTHORS.md file,
+    which is used by npmjs.org when your package is published.
+
   - `generate-changelog` - Uses [changelog-maker](https://github.com/rvagg/changelog-maker)
     to generate the CHANGELOG.md
 

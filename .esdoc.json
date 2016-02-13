@@ -1,5 +1,5 @@
 {
-    "title": "CNN Hapi",
+    "title": "CNN Package Generator",
     "source": "./",
     "destination": "./docs",
     "excludes": ["docs", "node_modules"],

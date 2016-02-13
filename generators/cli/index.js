@@ -63,8 +63,9 @@ function validateRepositoryName(input) {
 
 
 function validateRemoteRepository(input) {
-    return 'You must create a repository in the cnnlabs organization to continue';
+    return /^https:\/\/github.com\/cnnlabs\/.+\.git$/.test(input) ? true : 'Use the https clone url from the repository that was created.';
 }
+
 
 module.exports = generators.Base.extend({
     initializing: {},
@@ -84,7 +85,7 @@ module.exports = generators.Base.extend({
                     },
                     {
                         type: 'input',
-                        name: 'githubRemote',
+                        name: 'githubRepositoryUrl',
                         message: 'GitHub repository in the cnnlabs organzation url',
                         validate: validateRemoteRepository
                     },
@@ -131,7 +132,7 @@ module.exports = generators.Base.extend({
 
                 function (answers) {
                     this.cliName = answers.cliName;
-                    // this.createRemoteRepository = answers.createRemoteRepository;
+                    // this.githubRepositoryUrl = answers.githubRepositoryUrl;
                     this.minimumNodeVersion = answers.minimumNodeVersion;
                     this.projectName = answers.projectName;
                     this.repositoryName = answers.repositoryName;
@@ -178,9 +179,11 @@ module.exports = generators.Base.extend({
             this.fs.copy(this.templatePath('COLLABORATOR_GUIDE.md'), this.destinationPath('COLLABORATOR_GUIDE.md'));
             this.fs.copy(this.templatePath('CONTRIBUTING.md'), this.destinationPath('CONTRIBUTING.md'));
             this.fs.copy(this.templatePath('GOVERNANCE.md'), this.destinationPath('GOVERNANCE.md'));
+            this.fs.copy(this.templatePath('LICENSE'), this.destinationPath('LICENSE'));
 
             this.fs.copy(this.templatePath('man/man1/.gitkeep'), this.destinationPath(`man/man1/${this.cliName}.1`));
             this.fs.copy(this.templatePath('test/'), this.destinationPath('test/'));
+            this.fs.copy(this.templatePath('tools/'), this.destinationPath('tools/'));
         },
 
         copyTemplates: function () {

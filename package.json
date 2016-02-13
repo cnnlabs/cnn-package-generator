@@ -1,31 +1,34 @@
 {
-  "name": "cnn-init",
+  "name": "cnn-package-generator",
   "version": "0.1.0",
-  "description": "CLI for initializing new projects",
+  "description": "A CLI for generating CNN packages.",
   "main": "cnn-cli.js",
   "bin": {
     "cnn": "./bin/cnn.js"
   },
-  "man": "man/man1/cnn.1",
+  "man": [
+    "man/man1/cnn.1"
+  ],
   "directories": {
     "test": "./test"
   },
   "scripts": {
+    "generate-authors": "tools/generate-authors.sh",
     "generate-changelog": "changelog-maker --group",
     "generate-docs": "rm -rf docs && esdoc -c .esdoc.json",
-    "generate-manpage": "marked-man src/man/man1/cnn.1.md > $(jq -r .man package.json)",
+    "generate-manpage": "marked-man src/man/man1/cnn.1.md > $(jq -r .man[] package.json)",
     "test": "eslint *.js .*.js **/*.js **/.*.js && test/validate-json-files.sh",
     "update-apply": "ncu -u",
     "update-check": "ncu"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cnnlabs/cnn-init.git"
+    "url": "https://github.com/cnnlabs/cnn-init.git"
   },
   "bugs": {
     "url": "https://github.com/cnnlabs/cnn-init/issues"
   },
-  "homepage": "https://github.com/cnnlabs/cnn-init#readme",
+  "homepage": "https://github.com/cnnlabs/cnn-init",
   "engines": {
     "node": ">=5.5.0"
   },

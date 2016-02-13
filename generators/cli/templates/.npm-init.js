@@ -120,7 +120,7 @@ var pack = package; // eslint-disable-line
     exports.repository = function (cb) {
         fs.readFile('.git/config', 'utf8', function (er, gconf) {
             if (er || !gconf) {
-                return cb(null, yes ? '' : prompt('Git repository'));
+                return cb(null, yes ? '' : prompt('Git repository url'));
             }
 
             gconf = gconf.split(/\r?\n/);
@@ -146,7 +146,7 @@ var pack = package; // eslint-disable-line
                 u = u.replace(/^git@github.com:/, 'https://github.com/');
             }
 
-            return cb(null, yes ? u : prompt('Git repository', u));
+            return cb(null, yes ? u : prompt('Git repository url', u));
         });
     };
 

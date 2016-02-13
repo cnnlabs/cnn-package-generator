@@ -2,7 +2,7 @@
 
 
 ## SYNOPSIS
-cnn [options]
+cnn [options] generators
 
 
 ## DESCRIPTION

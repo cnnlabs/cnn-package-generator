@@ -13,9 +13,8 @@
 
 This document contains information for Collaborators of this project regarding
 maintaining the code, documentation and issues.  This is almost exactly the same
-as the [io.js Collaborator Guide](https://github.com/nodejs/io.js/blob/master/COLLABORATOR_GUIDE.md)
-with changes to be a bit more generic and apply to projects with a single
-Project Owner (PO) versus a Technical Committee (TC).
+as the [Node.js Collaborator Guide](https://github.com/nodejs/node/blob/master/COLLABORATOR_GUIDE.md)
+with changes to better fit our needs.
 
 Collaborators should be familiar with the guidelines for new contributors in
 [CONTRIBUTING.md](./CONTRIBUTING.md) and also understand the project governance
@@ -67,10 +66,7 @@ If you are unsure about the modification and are not prepared to take full
 responsibility for the change, defer to another Collaborator.
 
 Before landing pull requests, sufficient time should be left for input from
-other Collaborators.  Leave at least 48 hours during the week and 72 hours over
-weekends to account for time differences and work schedules.  Trivial changes
-(e.g. those which fix minor bugs or improve performance without affecting API or
-causing other wide-reaching inpact) may be landed after a shorter delay.
+other Collaborators.  Trivial changes may be landed after a shorter delay.
 
 Where this is no disagreement amongst Collaborators, a pull request may be
 landed given appropriate review.  Where there is discussion amongst
@@ -318,10 +314,5 @@ $ git push origin develop
 Copy the CHANGELOG.md entry you made earlier.  Add the release notes to GitHub.
 Goto https://github.com/ORG_NAME/REPO_NAME/tags and click
 _**Add Release Notes**_ next to the tag that was pushed up earlier.
-
-Copy the release notes from the GitHub website; The html, not the markdown you
-copied earlier.  Paste that into an email addressed to
-CNNProductionNotification@turner.com with a Subject of
-`Production Deployment: REPO_NAME-[version-number]`.
 
 Publish the released version to npm.

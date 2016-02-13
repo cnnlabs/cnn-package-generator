@@ -13,6 +13,7 @@
   "directories": {
   },
   "scripts": {
+    "generate-authors": "tools/generate-authors.sh",
     "generate-changelog": "changelog-maker --group",
     "generate-docs": "rm -rf docs && esdoc -c .esdoc.json",
     "generate-manpage": "marked-man src/man/man1/<%= CLI_NAME %>.1.md > $(jq -r .man[] package.json)",
@@ -23,6 +24,7 @@
   "repository": {
   },
   "bugs": {
+    "url": ""
   },
   "homepage": "",
   "engines": {
@@ -40,4 +42,3 @@
   ],
   "license": "MIT"
 }
-
