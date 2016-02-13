@@ -62,6 +62,10 @@ function validateRepositoryName(input) {
 }
 
 
+function validateRemoteRepository(input) {
+    return 'You must create a repository in the cnnlabs organization to continue';
+}
+
 module.exports = generators.Base.extend({
     initializing: {},
 
@@ -77,6 +81,12 @@ module.exports = generators.Base.extend({
                         message: 'Repository name:',
                         default: process.cwd().match(/[^\/]+$/)[0],
                         validate: validateRepositoryName
+                    },
+                    {
+                        type: 'input',
+                        name: 'githubRemote',
+                        message: 'GitHub repository in the cnnlabs organzation url',
+                        validate: validateRemoteRepository
                     },
                     {
                         type: 'input',
@@ -121,6 +131,7 @@ module.exports = generators.Base.extend({
 
                 function (answers) {
                     this.cliName = answers.cliName;
+                    // this.createRemoteRepository = answers.createRemoteRepository;
                     this.minimumNodeVersion = answers.minimumNodeVersion;
                     this.projectName = answers.projectName;
                     this.repositoryName = answers.repositoryName;
