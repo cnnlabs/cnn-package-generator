@@ -61,7 +61,8 @@ Usage: cnn [OPTIONS] generators
   - CONTRIBUTING.md
   - GOVERNANCE.md
 
-- Creates a GIT repository for the project.
+- Creates a local GIT repository for the project.  Currently the remote
+  repository on GitHub will need to be manually created.
 
 - Generates a default package.json with all of the required properties and
   dependencies needed for the chosen generator.  Includes the following default
