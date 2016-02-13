@@ -1,4 +1,4 @@
-# <%= CLI_NAME %>
+# <%= PROJECT_NAME %>
 
 This is a CNN CLI based project.  Replace this README with your own.
 

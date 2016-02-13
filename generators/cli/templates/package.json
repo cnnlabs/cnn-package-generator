@@ -1,7 +1,4 @@
 {
-  "name": "<%= REPOSITORY_NAME %>",
-  "version": "0.1.0",
-  "description": "<%= PROJECT_NAME %>",
   "preferGlobal": true,
   "main": "lib/<%= CLI_NAME %>-cli.js",
   "bin": {
@@ -10,35 +7,13 @@
   "man": [
     "man/man1/<%= CLI_NAME %>.1"
   ],
-  "directories": {
-  },
   "scripts": {
-    "generate-authors": "tools/generate-authors.sh",
-    "generate-changelog": "changelog-maker --group",
-    "generate-docs": "rm -rf docs && esdoc -c .esdoc.json",
-    "generate-manpage": "marked-man src/man/man1/<%= CLI_NAME %>.1.md > $(jq -r .man[] package.json)",
-    "test": "eslint *.js .*.js **/*.js **/.*.js && test/validate-json-files.sh",
-    "update-apply": "ncu -u",
-    "update-check": "ncu"
+    "generate-manpage": "marked-man src/man/man1/<%= CLI_NAME %>.1.md > $(jq -r .man[] package.json)"
   },
-  "repository": {
-  },
-  "bugs": {
-    "url": ""
-  },
-  "homepage": "",
-  "engines": {
-    "node": ">=<%= MINIMUM_NODE_VERSION %>"
-  },
-  "dependencies": {},
-  "devDependencies": {},
   "os": [
     "!win32"
   ],
   "keywords": [
-    "cnn",
-    "cnnlabs",
     "cli"
-  ],
-  "license": "MIT"
+  ]
 }
