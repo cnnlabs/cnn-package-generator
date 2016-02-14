@@ -79,34 +79,34 @@ module.exports = generators.Base.extend({
 
     conflicts: {
         mergePackageJson: function () {
-            // there has got to be a better way to do this
-            // const targetJson = require(this.destinationPath('package.json')),
-            //     sourceJson = require(this.templatePath('package.json'));
+            // There has got to be a better way to do this!
+            // UPDATE!
+            //   Apparently not - https://github.com/yeoman/generator-generator/blob/master/app/index.js#L73
+
             const targetJson = this.fs.readJSON(this.destinationPath('package.json')),
                 sourceJson = this.fs.readJSON(this.templatePath('package.json'));
 
-            // this.fs.write(this.destinationPath('package.json'), JSON.stringify(Object.assign(targetJson, sourceJson)));
             this.fs.writeJSON(this.destinationPath('package.json'), Object.assign(targetJson, sourceJson));
             this.fs.copyTpl(this.destinationPath('package.json'), this.destinationPath('package.json'), {CLI_NAME: this.cliName});
         }
     },
 
-    // install: {
-    //     npmInstall: function () {
-    //         this.npmInstall(['minimist'], {save: true});
-    //
-    //         this.npmInstall([
-    //             'marked-man'
-    //         ], {
-    //             saveDev: true
-    //         });
-    //     }
-    // },
+    install: {
+        npmInstall: function () {
+            this.npmInstall(['minimist'], {save: true});
+
+            this.npmInstall([
+                'marked-man'
+            ], {
+                saveDev: true
+            });
+        }
+    },
 
     end: {
-        // generateManpage: function () {
-        //     this.spawnCommandSync('npm', ['run', 'generate-manpage']);
-        // },
+        generateManpage: function () {
+            this.spawnCommandSync('npm', ['run', 'generate-manpage']);
+        },
 
         message: function () {
             this.log('Finished with cnn:cli');
