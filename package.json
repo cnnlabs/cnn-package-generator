@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "generator-cnn-base": "0.1.5",
-    "generator-cnn-generator": "*",
+    "generator-cnn-generator": "0.1.0",
     "init-package-json": "1.9.3",
     "minimist": "1.2.0",
     "npm-package-arg": "4.1.0",
