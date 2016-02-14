@@ -40,7 +40,8 @@
     "npm-package-arg": "4.1.0",
     "validate-npm-package-name": "2.2.2",
     "yeoman-environment": "1.5.2",
-    "yeoman-generator": "0.22.5"
+    "yeoman-generator": "0.22.5",
+    "generator-cnn-base": "0.1.4"
   },
   "devDependencies": {
     "changelog-maker": "2.2.0",
