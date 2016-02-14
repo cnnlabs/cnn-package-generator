@@ -35,8 +35,8 @@
     "node": ">=5.5.0"
   },
   "dependencies": {
-    "generator-cnn-base": "0.1.5",
-    "generator-cnn-generator": "0.1.0",
+    "generator-cnn-base": "0.1.6",
+    "generator-cnn-generator": "0.1.2",
     "init-package-json": "1.9.3",
     "minimist": "1.2.0",
     "npm-package-arg": "4.1.0",
@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "changelog-maker": "2.2.0",
-    "esdoc": "0.4.4",
+    "esdoc": "0.4.5",
     "eslint": "2.0.0",
     "jq-cli-wrapper": "0.3.0",
     "jsonlint": "1.6.2",

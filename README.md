@@ -95,7 +95,7 @@ Usage: cnn [OPTIONS] generators
 
 
 [![build](https://img.shields.io/travis/cnnlabs/cnn-package-generator/master.svg?style=flat-square)](https://travis-ci.org/cnnlabs/cnn-package-generator)
-![node](https://img.shields.io/node/v/cnn-hapi.svg?style=flat-square)
+![node](https://img.shields.io/node/v/cnn-package-generator.svg?style=flat-square)
 [![npm](https://img.shields.io/npm/v/cnn-package-generator.svg?style=flat-square)](https://www.npmjs.com/package/cnn-package-generator)
 [![npm-downloads](https://img.shields.io/npm/dm/cnn-package-generator.svg?style=flat-square)](https://www.npmjs.com/package/cnn-package-generator)
 [![dependency-status](https://gemnasium.com/cnnlabs/cnn-package-generator.svg)](https://gemnasium.com/cnnlabs/cnn-package-generator)
