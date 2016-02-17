@@ -1,6 +1,6 @@
 {
   "name": "cnn-package-generator",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A CLI for generating CNN packages.",
   "main": "lib/cnn-cli.js",
   "bin": {
