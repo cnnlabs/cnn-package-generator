@@ -1,6 +1,6 @@
 # CNN Package Generator Changelog
 
-## 2016-02-19, Version 0.3.0, @jamsyoung
+## 2016-02-19, Version 0.4.0, @jamsyoung
 
 ### Notable changes
 
