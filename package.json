@@ -19,7 +19,7 @@
     "generate-changelog": "changelog-maker --group",
     "generate-docs": "rm -rf docs && esdoc -c .esdoc.json",
     "generate-manpage": "marked-man src/man/man1/cnn.1.md > $(jq -r .man[] package.json)",
-    "test": "eslint *.js .*.js **/*.js **/.*.js && test/validate-json-files.sh",
+    "test": "eslint . && test/validate-json-files.sh",
     "update-apply": "ncu -u",
     "update-check": "ncu"
   },
@@ -35,7 +35,7 @@
     "node": ">=5.5.0"
   },
   "dependencies": {
-    "generator-cnn-base": "0.1.8",
+    "generator-cnn-base": "0.2.0",
     "generator-cnn-cli": "0.1.1",
     "generator-cnn-generator": "0.1.3",
     "init-package-json": "1.9.3",
@@ -48,7 +48,7 @@
   "devDependencies": {
     "changelog-maker": "2.2.0",
     "esdoc": "0.4.5",
-    "eslint": "2.1.0",
+    "eslint": "2.2.0",
     "jq-cli-wrapper": "0.3.0",
     "jsonlint": "1.6.2",
     "marked-man": "0.1.5",
