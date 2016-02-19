@@ -1,5 +1,24 @@
 # CNN Package Generator Changelog
 
+## 2016-02-19, Version 0.3.0, @jamsyoung
+
+### Notable changes
+
+Fix for unit tests
+
+### Known issues
+
+See https://github.com/cnnlabs/cnn-package-generator/labels/defect for complete
+and current list of known issues.
+
+
+### Commits
+
+* [[`517f1cc261`](https://github.com/cnnlabs/cnn-package-generator/commit/517f1cc261)] - **(SEMVER-MINOR)** **tests**: update test config (James Young) [#9](https://github.com/cnnlabs/cnn-package-generator/pull/9)
+
+
+
+
 ## 2016-02-14, Version 0.2.0, @jamsyoung
 
 ### Notable changes
