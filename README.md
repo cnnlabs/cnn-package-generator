@@ -31,66 +31,15 @@ Usage: cnn [OPTIONS] generators
   -v, --version    Show version information
 
   Available generators:
-    cli
 ```
 
 
-## Valid generators
+## Available generators
 
-- `cli` - Use when creating a cli tool.
+Your system will be scanned and any generators found will be listed.  If a
+generator you want to use is not listed you can install it directly from npm.
+In future versions of this cli, this will be done automatically.
 
-
-## What does this do?
-
-- Generates a default file structure for the chosen generator.
-
-- Generates configuration files with predefined settings based on our
-  current standards.  This includes settings for the following packages.
-
-  - [Editorconfig](http://editorconfig.org/)
-  - [ESDoc](https://esdoc.org/)
-  - [ESLint](http://eslint.org/)
-  - [npm](https://www.npmjs.com/)
-  - [nvm](https://github.com/creationix/nvm)
-
-- Generates our standardized process documents.
-
-  - AUTHORS.md
-  - CHANGELOG.md
-  - COLLABORATOR_GUIDE.md
-  - CONTRIBUTING.md
-  - GOVERNANCE.md
-
-- Creates a local GIT repository for the project.  Currently the remote
-  repository on GitHub will need to be manually created.
-
-- Generates a default package.json with all of the required properties and
-  dependencies needed for the chosen generator.  Includes the following default
-  scripts.
-
-  - `generate-authors` - Uses a bash script to generate the AUTHORS.md file,
-    which is used by npmjs.org when your package is published.
-
-  - `generate-changelog` - Uses [changelog-maker](https://github.com/rvagg/changelog-maker)
-    to generate the CHANGELOG.md.
-
-  - `generate-docs` - Uses [ESDoc](https://esdoc.org/) to generate documentation
-    in `/docs`.
-
-  - `generate-manpage` - Uses [marked-man](https://github.com/kapouer/marked-man)
-    to create man pages.  Only applies to the cli generator.
-
-  - `test` - Uses [ESLint](http://eslint.org/) to validate all .js files and
-    uses [jsonlint](https://github.com/zaach/jsonlint) to validates all .json
-    files.
-
-  - `update-apply` - Uses [ncu](https://github.com/tjunnone/npm-check-updates)
-    and updates all dependencies.
-
-  - `update-check` - Uses [ncu](https://github.com/tjunnone/npm-check-updates)
-    and lists all updates, but does not apply them.
-
-- Calls `npm-init` to further customize the package.json file.
 
 
 
