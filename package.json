@@ -10,6 +10,7 @@
     "man/man1/cnn.1"
   ],
   "directories": {
+    "doc": "./docs",
     "lib": "./lib",
     "man": "./man",
     "test": "./test"
