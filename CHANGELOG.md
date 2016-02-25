@@ -1,5 +1,25 @@
 # CNN Package Generator Changelog
 
+## 2016-02-25, Version 0.5.0, @jamsyoung
+
+### Notable changes
+
+Under the hood changes with how dependencies are handled.
+
+### Known issues
+
+See https://github.com/cnnlabs/cnn-package-generator/labels/defect for complete
+and current list of known issues.
+
+
+### Commits
+
+* [[`bf32b42d00`](https://github.com/cnnlabs/cnn-package-generator/commit/bf32b42d00)] - **changelog**: update changelog (James Young)
+* [[`128b67f8c3`](https://github.com/cnnlabs/cnn-package-generator/commit/128b67f8c3)] - **(SEMVER-MINOR)** **various**: deps, base, cli, docs (James Young) [#10](https://github.com/cnnlabs/cnn-package-generator/pull/10)
+
+
+
+
 ## 2016-02-19, Version 0.4.0, @jamsyoung
 
 ### Notable changes
