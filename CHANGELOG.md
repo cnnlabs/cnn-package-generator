@@ -1,5 +1,24 @@
 # CNN Package Generator Changelog
 
+## 2016-02-26, Version 0.6.0, @jamsyoung
+
+### Notable changes
+
+Minor change for output of installed generators
+
+### Known issues
+
+See https://github.com/cnnlabs/cnn-package-generator/labels/defect for complete
+and current list of known issues.
+
+
+### Commits
+
+* [[`a68074735f`](https://github.com/cnnlabs/cnn-package-generator/commit/a68074735f)] - **(SEMVER-MINOR)** **cli**: add more info to installed generator list (James Young) [#12](https://github.com/cnnlabs/cnn-package-generator/pull/12)
+
+
+
+
 ## 2016-02-25, Version 0.5.0, @jamsyoung
 
 ### Notable changes
