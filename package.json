@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/cnnlabs/cnn-package-generator",
   "engines": {
-    "node": ">=5.5.0"
+    "node": ">=6.9.1"
   },
   "dependencies": {
     "init-package-json": "1.9.3",
