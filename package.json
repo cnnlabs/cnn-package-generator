@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "init-package-json": "1.9.4",
-    "minimist": "1.2.0",
+    "minimist": "1.2.2",
     "npm-package-arg": "4.2.0",
     "validate-npm-package-name": "2.2.2",
     "yeoman-environment": "1.6.6",
