@@ -22,7 +22,9 @@
     "generate-manpage": "marked-man src/man/man1/cnn.1.md > $(jq -r .man[] package.json)",
     "test": "eslint . && test/validate-json-files.sh",
     "update-apply": "ncu -u",
-    "update-check": "ncu"
+    "update-check": "ncu",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -41,7 +43,8 @@
     "npm-package-arg": "4.2.0",
     "validate-npm-package-name": "2.2.2",
     "yeoman-environment": "1.6.6",
-    "yeoman-generator": "0.24.1"
+    "yeoman-generator": "0.24.1",
+    "snyk": "^1.319.0"
   },
   "devDependencies": {
     "changelog-maker": "2.2.4",
@@ -61,5 +64,6 @@
     "cli",
     "cnn-package-generator"
   ],
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "snyk": true
 }
